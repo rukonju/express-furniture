@@ -9,7 +9,7 @@ const NavDrawer = () => {
     return (
         <>
         <IconButton sx={{textAlign:'right', ml:'auto'}} onClick={() => setOpenDrawer(!openDrawer)}>
-        <Menu sx={{ color: 'white' }} />
+        <Menu sx={{ color: 'black' }} />
       </IconButton>
         <Drawer
         anchor="right"
