@@ -1,9 +1,8 @@
 import { Container, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../../Shared/Navigation/Navbar/Navbar';
-import Product from '../Product/Product';
+import Product from '../HomePage/Product/Product';
 
-const Products = () => {
+const AllProducts = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() =>{
@@ -19,7 +18,8 @@ const Products = () => {
                 }
             </Grid>
         </Container>
+    
     );
 };
 
-export default Products;
+export default AllProducts;

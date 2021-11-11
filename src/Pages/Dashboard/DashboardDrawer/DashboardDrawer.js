@@ -24,6 +24,9 @@ function DashboardDrawer(props) {
           <Link to='feedback'>Feedback</Link>
           </ListItem>
           <ListItem onClick={handleDrawerToggle} >
+          <Link to='addProduct'>Add product</Link>
+          </ListItem>
+          <ListItem onClick={handleDrawerToggle} >
             <Link to='myOrder'>orders</Link>
           </ListItem>
       </List>
@@ -38,7 +41,7 @@ function DashboardDrawer(props) {
       {<AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          maxWidth: { sm: `calc(100% - ${drawerWidth}px)` },
           color:'black',
           boxShadow:'none',
           bgcolor:'rgb(249, 235, 234)'
@@ -64,7 +67,7 @@ function DashboardDrawer(props) {
       </AppBar>}
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ maxWidth: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}

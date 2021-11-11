@@ -12,7 +12,7 @@ const useFirebase =  () =>{
 
     const [user, setUser] = useState({})
     const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     console.log(user)
 
     const createUser = (email, password, name) =>{
@@ -38,6 +38,7 @@ const useFirebase =  () =>{
     }
 
     const googleSignIn = (navigate,from) =>{
+        setLoading(true)
         signInWithPopup(auth, googleProvider)
         .then((result) => {
             navigate(from, { replace: true });
@@ -45,7 +46,8 @@ const useFirebase =  () =>{
         })
         .catch((error) => {
             setError(error.message);
-        });
+        })
+        .finally(() => setLoading(false))
     }
 
     const signIn = (email, password, navigate, from) =>{
@@ -56,8 +58,8 @@ const useFirebase =  () =>{
         })
         .catch((error) => {
             setError(error.message);
-        });
-        setLoading(false)
+        })
+        .finally(() => setLoading(false))
     }
 
     const logOut = () =>{
@@ -72,9 +74,9 @@ const useFirebase =  () =>{
 
     useEffect(() =>{
         onAuthStateChanged(auth, (user) => {
-            setLoading(true)
             if (user) {
               setUser(user)
+              setLoading(false)
             } 
             else {
               setUser({})

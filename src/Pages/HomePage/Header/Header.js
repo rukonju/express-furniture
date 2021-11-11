@@ -5,10 +5,10 @@ import banner from '../../../images/banner.png'
 
 const Header = () => {
     return (
-        <Box sx={{ width: '100%', backgroundColor:'rgb(250, 229, 211)' }}>
+        <Box sx={{ width: '100%', backgroundColor:'rgb(14, 102, 85)' }}>
             <Grid container rowSpacing={1} sx={{alignItems:'center', justifyContent:'center', position:'relative'}} columnSpacing={{ xs: 4, sm: 4, md: 3 }}>
                 <Grid item xs={12} md={6}>
-                 <Typography variant='h4'>Welcome to express furniture</Typography>
+                 <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>Welcome to express furniture</Typography>
                 </Grid>
                 <Grid item xs={12} md={6}>
                 <img src={banner} alt=""  width="100%" />
