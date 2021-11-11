@@ -1,5 +1,6 @@
 import { Container, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import Navbar from '../../Shared/Navigation/Navbar/Navbar';
 import Product from '../HomePage/Product/Product';
 
 const AllProducts = () => {
@@ -11,6 +12,8 @@ const AllProducts = () => {
         .then(data=>setProducts(data))
     },[])
     return (
+        <>
+        <Navbar/>
         <Container sx={{my:4}}>
             <Grid container spacing={{ xs: 2, md: 3 }}>
                 {
@@ -18,6 +21,7 @@ const AllProducts = () => {
                 }
             </Grid>
         </Container>
+        </>
     
     );
 };

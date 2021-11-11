@@ -4,14 +4,14 @@ import { useNavigate, useLocation } from 'react-router';
 import google from '../../../images/google.png';
 import facebook from '../../../images/facebook.png';
 import { Link } from 'react-router-dom';
-import useFirebase from '../../../hooks/useFirebase';
+import useAuth from '../../../hooks/useAuth';
 
 
 const Login = () => {
     let navigate = useNavigate();
     let location = useLocation();
     let from = location.state?.from?.pathname || "/";
-    const {googleSignIn, signIn} = useFirebase()
+    const {googleSignIn, signIn} = useAuth()
     const [loginInfo, setLoginInfo] = useState({})
 
     const getLoginInfo = e =>{

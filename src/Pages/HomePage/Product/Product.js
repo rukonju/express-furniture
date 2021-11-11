@@ -1,8 +1,9 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Product = ({product}) => {
-    const{name, Color, metarial, photoUrl, price} = product;
+    const{_id, name, Color, metarial, photoUrl, price} = product;
     return (
         <Grid item xs={12} sm={6} md={4}>
             <Card sx={{ maxWidth: '100%' }}>
@@ -28,8 +29,10 @@ const Product = ({product}) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
+                    <Link to={`products/${_id}`}>
+                        <Button size="small">Purchase</Button>
+                    </Link>
+                    <Button size="small">Details</Button>
                 </CardActions>
             </Card>
         </Grid>

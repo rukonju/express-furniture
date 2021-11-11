@@ -1,7 +1,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { AppBar, Box, Button, Divider, IconButton, List, ListItem, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, IconButton, List, ListItem, Toolbar, Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import { Outlet } from 'react-router-dom';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
@@ -41,10 +42,10 @@ function DashboardDrawer(props) {
       {<AppBar
         position="fixed"
         sx={{
-          maxWidth: { sm: `calc(100% - ${drawerWidth}px)` },
-          color:'black',
+          maxWidth: { sm: '100%' },
+          color:'white',
           boxShadow:'none',
-          bgcolor:'rgb(249, 235, 234)'
+          bgcolor:'rgb(14, 102, 85)'
         }}
       >
         <Toolbar>
@@ -67,7 +68,7 @@ function DashboardDrawer(props) {
       </AppBar>}
       <Box
         component="nav"
-        sx={{ maxWidth: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ maxWidth: { sm: '25%' }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -82,8 +83,8 @@ function DashboardDrawer(props) {
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, border:'0px',
-            bgcolor:'rgb(249, 235, 234)' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '25%', border:'0px',
+            bgcolor:'rgb(115, 198, 182 )' },
             
           }}
         >
@@ -94,8 +95,8 @@ function DashboardDrawer(props) {
           variant="permanent"
           sx={{
             display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth , border:'0px',
-            bgcolor:'rgb(249, 235, 234)'},
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '25vw' , border:'0px',
+            bgcolor:'rgb(115, 198, 182 )', position:'inherit', height:'100vh'},
             
           }}
           open
@@ -108,7 +109,7 @@ function DashboardDrawer(props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        
+        <Outlet/>
       </Box>
     </Box>
   );

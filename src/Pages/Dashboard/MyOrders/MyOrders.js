@@ -2,7 +2,7 @@ import React from 'react';
 
 const myOrders = () => {
     return (
-        <div>
+        <div style={{marginTop:'100px'}}>
             This is my orders
         </div>
     );

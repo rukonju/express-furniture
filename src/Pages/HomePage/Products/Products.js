@@ -1,6 +1,5 @@
 import { Container, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../../Shared/Navigation/Navbar/Navbar';
 import Product from '../Product/Product';
 
 const Products = () => {

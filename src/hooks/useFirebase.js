@@ -6,7 +6,6 @@ initializeFirebase();
 getStorage(initializeFirebase())
 
 const useFirebase =  () =>{
-
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
 
@@ -15,18 +14,22 @@ const useFirebase =  () =>{
     const [loading, setLoading] = useState(true);
     console.log(user)
 
-    const createUser = (email, password, name) =>{
-        setLoading(true)
+    const createUser = (email, password, name, navigate, from) =>{
+        console.log(email, password, name, navigate, from)
+        setLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-
             const newUser = { email, displayName: name };
             setUser(newUser)
             console.log( userCredential.user);
             updateProfile(auth.currentUser, {
                 displayName: name
-              }).then(() => {
-              }).catch((error) => {
+              })
+              .then(() => {
+                  setUser(newUser)
+                  navigate(from, { replace: true });
+              })
+              .catch((error) => {
                 console.log(error)
               });
         })
@@ -42,7 +45,6 @@ const useFirebase =  () =>{
         signInWithPopup(auth, googleProvider)
         .then((result) => {
             navigate(from, { replace: true });
-            console.log( result.user);
         })
         .catch((error) => {
             setError(error.message);
@@ -89,10 +91,10 @@ const useFirebase =  () =>{
         user,
         error,
         loading,
+        logOut,
+        signIn,
         createUser,
         googleSignIn,
-        signIn,
-        logOut
     }
 }
 
