@@ -29,7 +29,7 @@ const Navbar = () => {
                             <Link style={style} to="/" >
                             <Button variant='inherit'>Home</Button>
                             </Link>
-                            <Link style={style} to="products" >
+                            <Link style={style} to="/products" >
                             <Button variant='inherit'>Furniture</Button>
                             </Link>
                             <Link style={style} to="/About" >

@@ -16,6 +16,7 @@ const AllProducts = () => {
         <Navbar/>
         <Container sx={{my:4}}>
             <Grid container spacing={{ xs: 2, md: 3 }}>
+                
                 {
                     products.map(product=><Product key={product._id} product={product}></Product>)
                 }
