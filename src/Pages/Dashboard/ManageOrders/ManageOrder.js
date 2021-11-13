@@ -27,10 +27,10 @@ const ManageOrder = () => {
                 handleClose()
             }
             
-        }
+    };
 
     useEffect(() =>{
-        fetch('http://localhost:5000/orders')
+        fetch('https://damp-meadow-99405.herokuapp.com/orders')
         .then(res=>res.json())
         .then(data=>setOrders(data))
         .finally(setOrderStatus(''))
@@ -40,7 +40,7 @@ const ManageOrder = () => {
         setOrderStatus(status)
         const order = { status };
         console.log(status)
-        fetch('http://localhost:5000/orders/status', {
+        fetch('https://damp-meadow-99405.herokuapp.com/orders/status', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -53,10 +53,9 @@ const ManageOrder = () => {
                 console.log(data);
             }
         })
-    }
+    };
 
     const availableOrders = orders.filter(order =>order._id !== orderCancelId)
-    console.log(availableOrders)
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -72,86 +71,85 @@ const ManageOrder = () => {
           '&:nth-of-type(odd)': {
               backgroundColor: theme.palette.action.hover,
             },
-            // hide last border
             '&:last-child td, &:last-child th': {
                 border: 0,
             },
         }));
     return (
-            <div>
-        <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell align="right">Email</StyledTableCell>
-            <StyledTableCell align="right">Product Name</StyledTableCell>
-            <StyledTableCell align="right">Quantity</StyledTableCell>
-            <StyledTableCell align="right">Status</StyledTableCell>
-            <StyledTableCell align="right">Action</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {availableOrders.map((order) => (
-            <StyledTableRow key={order._id}>
-              <StyledTableCell component="th" scope="row">
-                {order?.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{order?.email}</StyledTableCell>
-              <StyledTableCell align="right">{order?.product?.name}</StyledTableCell>
-              <StyledTableCell align="right">{order?.quantity}</StyledTableCell>
-              <StyledTableCell align="right">{order?.status}</StyledTableCell>
-              <StyledTableCell align="right">
-              <Button 
-              onClick={() =>{
-                setOrderId(order._id)
-                setOpen(true)
-              }}
-               variant="outlined" 
-               size='small'
-               startIcon={<Delete />}
-               >
-                   Delete
-                </Button>
-              {
-                  order.status !== 'Shipped' && <Button 
-                  onClick={() =>updateOrder(order?.status)}
-                  variant="outlined" 
-                  size='small'
-                  startIcon={<AddShoppingCart  />}
-                  >
-                      Ship
-                   </Button>
-              }
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        <>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                    <TableHead>
+                    <TableRow>
+                        <StyledTableCell>Name</StyledTableCell>
+                        <StyledTableCell align="right">Email</StyledTableCell>
+                        <StyledTableCell align="right">Product Name</StyledTableCell>
+                        <StyledTableCell align="right">Quantity</StyledTableCell>
+                        <StyledTableCell align="right">Status</StyledTableCell>
+                        <StyledTableCell align="right">Action</StyledTableCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {availableOrders.map((order) => (
+                        <StyledTableRow key={order._id}>
+                        <StyledTableCell component="th" scope="row">
+                            {order?.name}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">{order?.email}</StyledTableCell>
+                        <StyledTableCell align="right">{order?.product?.name}</StyledTableCell>
+                        <StyledTableCell align="right">{order?.quantity}</StyledTableCell>
+                        <StyledTableCell align="right">{order?.status}</StyledTableCell>
+                        <StyledTableCell align="right">
+                        <Button 
+                        onClick={() =>{
+                            setOrderId(order._id)
+                            setOpen(true)
+                        }}
+                        variant="outlined" 
+                        size='small'
+                        startIcon={<Delete />}
+                        >
+                            Delete
+                            </Button>
+                        {
+                            order.status !== 'Shipped' && <Button 
+                            onClick={() =>updateOrder(order?.status)}
+                            variant="outlined" 
+                            size='small'
+                            startIcon={<AddShoppingCart  />}
+                            >
+                                Ship
+                            </Button>
+                        }
+                        </StyledTableCell>
+                        </StyledTableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
       
-    <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-    >
-        <DialogTitle id="alert-dialog-title">
-        {"Are you sure to delete?"}
-        </DialogTitle>
-        <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-            Data is deleted from database
-        </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-        <Button onClick={() => deleteOrder(false)}>No</Button>
-        <Button onClick={() => deleteOrder(true)} autoFocus>
-            Yes
-        </Button>
-        </DialogActions>
-    </Dialog>
-</div>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                {"Are you sure to delete?"}
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Data is deleted from database
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={() => deleteOrder(false)}>No</Button>
+                <Button onClick={() => deleteOrder(true)} autoFocus>
+                    Yes
+                </Button>
+                </DialogActions>
+            </Dialog>
+        </>
     );
 };
 

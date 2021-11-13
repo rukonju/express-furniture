@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import AuthProvider from './context/AuthProvider/AuthProvider';
 import About from './Pages/About/About';
@@ -24,33 +24,37 @@ import PurchaseMain from './Pages/PurchasePage/PurchaseMain/PurchaseMain';
 function App() {
   
   return (
-    <div className="">
       <AuthProvider>
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />}/>
-            <Route path='/home' element={<Home />} />
-            <Route path="/login" element={<Login />}/>
-            <Route path="/register" element={<Register />}/>
-            <Route path="/products" element={<AllProducts />}/>
-            <Route path="products/:id" element={<PrivateRoute><PurchaseMain /></PrivateRoute>}/>
-            <Route path="products/products/:id" element={<PrivateRoute><PurchaseMain /></PrivateRoute>}/>
-            <Route path='dashboard/*' element={<PrivateRoute><DashboardDrawer /></PrivateRoute> }>
-              <Route path='myOrder' element={<MyOrders />}/>
-              <Route path='payment' element={<Payment />}/>
-              <Route path='feedback' element={<Feedback />}/>
+          <Switch>
+            <Route exact path="/">
+              <Home />
             </Route>
-            <Route path='dashboard/*' element={<AdminRoute><DashboardDrawer /></AdminRoute> }>
-              <Route path='manageOrders' element={<ManageOrder />}/>
-              <Route path='addProduct' element={<AddProduct />}/>
-              <Route path='manageProducts' element={<ManageProducts />}/>
-              <Route path='admin' element={<MakeAdmin />}/>
+            <Route path='/home' >
+            <Home />
             </Route>
-            <Route path="/about" element={<About />}/>
-          </Routes>
+            <Route path="/login" >
+            <Login />
+            </Route>
+            <Route path="/register">
+            <Register />
+            </Route>
+            <Route path="/products" >
+              <AllProducts />
+            </Route>
+            <PrivateRoute path="/purchase/:id">
+              <PurchaseMain />
+            </PrivateRoute>
+            <PrivateRoute path='/dashboard'>
+              <DashboardDrawer />
+            </PrivateRoute>
+              
+            <Route path="/about">
+              <About />
+            </Route>
+          </Switch>
         </BrowserRouter>
       </AuthProvider>  
-    </div>
   );
 }
 

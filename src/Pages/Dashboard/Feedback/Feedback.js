@@ -7,7 +7,6 @@ const Feedback = () => {
     const [reviewInfo, setReviewInfo] = useState({});
     const [rating, setRating] = useState(null);
     const [open, setOpen] = useState(false);
-    const [success, setSuccess] = useState(null);
     console.log(rating)
     const getReviewInfo = e =>{
         const field = e.target.name;
@@ -23,8 +22,7 @@ const Feedback = () => {
     }
 
     const handleReview = e =>{
-
-        fetch('http://localhost:5000/reviews',{
+        fetch('https://damp-meadow-99405.herokuapp.com/reviews',{
             method:'POST',
             headers: {
                 'content-type': 'application/json'
@@ -35,7 +33,6 @@ const Feedback = () => {
         .then(result=>{
             if(result.insertedId){
                 setOpen(true);
-                setSuccess(true);
             }
         })
         e.preventDefault();
@@ -44,6 +41,7 @@ const Feedback = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
     return (
         <Container>
             <Typography>Comment</Typography>
@@ -67,7 +65,6 @@ const Feedback = () => {
             /> <br />
             <Button  type="submit" variant='contained'>Review</Button>
             </form>
-            {
              <Dialog
                 open={open}
                 onClose={handleClose}
@@ -84,7 +81,6 @@ const Feedback = () => {
                   </Button>
                 </DialogActions>
               </Dialog>
-            }
         </Container>
     );
 };

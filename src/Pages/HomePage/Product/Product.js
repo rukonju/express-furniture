@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Product = ({product}) => {
     const{_id, name, Color, metarial, photoUrl, price} = product;
+    
     return (
         <Grid item xs={12} sm={6} md={4}>
             <Card elevation={16} sx={{ maxWidth: '100%' }}>
@@ -27,7 +28,7 @@ const Product = ({product}) => {
                     <Typography gutterBottom variant="h7" component="div">
                     Price: {price}
                     </Typography>
-                    <Link style={{textDecoration:'none'}} to={`products/${_id}`}>
+                    <Link style={{textDecoration:'none'}} to={`/purchase/${_id}`}>
                         <Button color= 'success' variant="contained" size="small" >Purchase</Button>
                     </Link>
                 </CardContent>

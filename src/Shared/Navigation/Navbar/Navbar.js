@@ -5,7 +5,6 @@ import NavDrawer from '../NavDrawer/NavDrawer';
 import useAuth from '../../../hooks/useAuth';
 import logo from '../../../images/logo.png'
 
-
 const Navbar = () => {
     const {user, logOut} = useAuth()
     const theme = useTheme();
@@ -14,7 +13,8 @@ const Navbar = () => {
         color:'black',
         textDecoration:'none',
         margin:'0px 10px'
-      }
+    };
+    
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{backgroundColor:'rgba(249, 235, 234, 0.6 )', color:'black'}}>
@@ -26,7 +26,7 @@ const Navbar = () => {
                         isMobile ? <NavDrawer/> 
                         :
                         <Box sx={{ display: 'flex', alignItems: 'center', ml:'auto' }} >
-                            <Link style={style} to="/" >
+                            <Link style={style} to="/home" >
                             <Button variant='inherit'>Home</Button>
                             </Link>
                             <Link style={style} to="/products" >

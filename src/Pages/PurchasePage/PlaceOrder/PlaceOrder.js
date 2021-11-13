@@ -7,7 +7,8 @@ const PlaceOrder = ({product}) => {
     const {user} = useAuth();
     const [purchaseInfo, setPurchaseInfo] = useState({});
     const [quantityError, setQuantityError] = useState(false);
-    const [orderPlaced, setOrderPlaced] = useState(false)
+    const [orderPlaced, setOrderPlaced] = useState(false);
+    
     const getPurchaseInfo = e =>{
         const field = e.target.name;
         const value = e.target.value;
@@ -34,7 +35,7 @@ const PlaceOrder = ({product}) => {
             setQuantityError(true)
         }
         else{
-            fetch('http://localhost:5000/orders',{
+            fetch('https://damp-meadow-99405.herokuapp.com/orders',{
                 method: 'POST',
                 headers:{
                     'content-type': 'application/json'
@@ -52,6 +53,7 @@ const PlaceOrder = ({product}) => {
     }
 
     const style ={display:'flex', flexDirection:'column', maxWidth:'550px',margin:'auto'};
+
     return (
         
             <Box sx={style}

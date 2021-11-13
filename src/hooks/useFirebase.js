@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getStorage } from "firebase/storage";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, updateProfile, getIdToken } from "firebase/auth";
-import initializeFirebase from '../Pages/Authentication/Firebase/firebase.init'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, updateProfile} from "firebase/auth";
+import initializeFirebase from '../Pages/Authentication/Firebase/firebase.init';
 initializeFirebase();
 getStorage(initializeFirebase())
 
@@ -13,13 +13,12 @@ const useFirebase =  () =>{
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(true);
     const [admin, setAdmin] = useState(false);
-    const [token, setToken] = useState('');
     const [orderCancelId, setOrderCancelId] = useState('');
     const [deletedProductId, setDeletedProductId] = useState('');
     console.log(user)
 
-    const createUser = (email, password, name, navigate, from) =>{
-        console.log(email, password, name, navigate, from)
+    const createUser = (email, password, name, location, history) =>{
+
         setLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -32,7 +31,8 @@ const useFirebase =  () =>{
               })
               .then(() => {
                   setUser(newUser)
-                  navigate(from, { replace: true });
+                  const destination = location?.state?.from || '/';
+                    history.replace(destination)
               })
               .catch((error) => {
                 console.log(error)
@@ -40,18 +40,19 @@ const useFirebase =  () =>{
         })
         .catch((error) => {
             setError(error.message);
-        });
+        })
+        .finally(() => setLoading(false))
         
-        setLoading(false)
     }
 
-    const googleSignIn = (navigate,from) =>{
+    const googleSignIn = (location, history) =>{
         setLoading(true)
         signInWithPopup(auth, googleProvider)
         .then((result) => {
             const {displayName, email} = result?.user;
             saveUser(email, displayName, 'PUT');
-            navigate(from, { replace: true });
+            const destination = location?.state?.from || '/';
+            history.replace(destination)
         })
         .catch((error) => {
             setError(error.message);
@@ -59,11 +60,12 @@ const useFirebase =  () =>{
         .finally(() => setLoading(false))
     }
 
-    const signIn = (email, password, navigate, from) =>{
+    const signIn = (email, password, location, history) =>{
         setLoading(true)
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            navigate(from, { replace: true });
+            const destination = location?.state?.from || '/';
+            history.replace(destination)
         })
         .catch((error) => {
             setError(error.message);
@@ -78,20 +80,18 @@ const useFirebase =  () =>{
         })
         .catch((error) => {
             setError(error.message)
-        });
+        })
+        .finally(() => setLoading(false))
     }
 
     useEffect(() => {
         const unsubscribed = onAuthStateChanged(auth, (user) => {
-            setLoading(true);
+
             if (user) {
                 setUser(user);
-                setLoading(false);
-                getIdToken(user)
-                    .then(idToken => {
-                        setToken(idToken);
-                    })
-            } else {
+
+            } 
+            else {
                 setUser({})
             }
             setLoading(false);
@@ -100,29 +100,28 @@ const useFirebase =  () =>{
     }, [auth])
 
     useEffect(() => {
-        setLoading(true)
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`https://damp-meadow-99405.herokuapp.com/users/${user.email}`)
             .then(res => res.json())
             .then(data => {
                 setAdmin(data.admin);
             })
-            .finally(setLoading(false))
     }, [user.email])
 
     const saveUser = (email, displayName, method) => {
         const user = { email, displayName };
-        fetch('http://localhost:5000/users', {
+        fetch('https://damp-meadow-99405.herokuapp.com/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(user)
         })
-            .then()
+        .then(res=>res.json())
+        .then(result=>console.log(result))
     }
 
     const handleDeleteProduct = (id) =>{
-        const url = `http://localhost:5000/products/${id}`
+        const url = `https://damp-meadow-99405.herokuapp.com/products/${id}`
         fetch(url,{
             method: 'DELETE'
         })
@@ -133,8 +132,9 @@ const useFirebase =  () =>{
             }
         })
     }
+    
     const handleCancelOrder = (id) =>{
-        const url = `http://localhost:5000/orders/${id}`
+        const url = `https://damp-meadow-99405.herokuapp.com/orders/${id}`
         fetch(url,{
             method: 'DELETE'
         })
@@ -150,7 +150,6 @@ const useFirebase =  () =>{
         user,
         error,
         admin,
-        token,
         loading,
         orderCancelId,
         deletedProductId,

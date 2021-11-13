@@ -10,12 +10,12 @@ const NavDrawer = () => {
         <>
         <IconButton sx={{textAlign:'right', ml:'auto'}} onClick={() => setOpenDrawer(!openDrawer)}>
         <Menu sx={{ color: 'black' }} />
-      </IconButton>
+        </IconButton>
         <Drawer
         anchor="right"
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}
-      >
+        >
         <Box>
             <IconButton 
                 size="large"
@@ -26,37 +26,34 @@ const NavDrawer = () => {
             >
                 <CloseIcon />
             </IconButton>
-        <List sx={{p:0}}>
-            
-        
-        <ListItem onClick={() => setOpenDrawer(false)}>
-            <ListItemText>
-                <Link to="/" >Home</Link>
-            </ListItemText>
-        </ListItem>
-        <Divider/>
-        <ListItem onClick={() => setOpenDrawer(false)}>
-            <ListItemText>
-                <Link to="/login" >login</Link>
-            </ListItemText>
-        </ListItem>
-        <Divider/>
-        <ListItem onClick={() => setOpenDrawer(false)}>
-            <ListItemText>
-                <Link to="/dashboard" >Dashboard</Link>
-            </ListItemText>
-        </ListItem>
-        <Divider/>
-        <ListItem onClick={() => setOpenDrawer(false)}>
-            <ListItemText>
-                <Link to="/about" >Faq</Link>
-            </ListItemText>
-        </ListItem>
-      <Divider/>
-    </List>
+            <List sx={{p:0}}>
+                <ListItem onClick={() => setOpenDrawer(false)}>
+                    <ListItemText>
+                        <Link to="/" >Home</Link>
+                    </ListItemText>
+                </ListItem>
+                <Divider/>
+                <ListItem onClick={() => setOpenDrawer(false)}>
+                    <ListItemText>
+                        <Link to="/login" >login</Link>
+                    </ListItemText>
+                </ListItem>
+                <Divider/>
+                <ListItem onClick={() => setOpenDrawer(false)}>
+                    <ListItemText>
+                        <Link to="/dashboard" >Dashboard</Link>
+                    </ListItemText>
+                </ListItem>
+                <Divider/>
+                <ListItem onClick={() => setOpenDrawer(false)}>
+                    <ListItemText>
+                        <Link to="/about" >Faq</Link>
+                    </ListItemText>
+                </ListItem>
+                <Divider/>
+            </List>
         </Box>
-      </Drawer>
-      
+        </Drawer>
       </>
     );
 };

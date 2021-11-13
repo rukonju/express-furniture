@@ -1,6 +1,5 @@
-import { Button, TextField, Alert, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import React, { useState } from 'react';
-import useAuth from '../../../hooks/useAuth';
+import { Button, TextField, Alert, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 
 const MakeAdmin = () => {
     const [email, setEmail] = useState('');
@@ -10,7 +9,8 @@ const MakeAdmin = () => {
 
     const handleOnBlur = e => {
         setEmail(e.target.value);
-    }
+    };
+
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -23,7 +23,7 @@ const MakeAdmin = () => {
             setConfirmation(false);
         }
         setOpen(false);
-    }
+    };
   
     const handleClose = (value) => {
         setOpen(false);
@@ -34,13 +34,14 @@ const MakeAdmin = () => {
             setConfirmation(false)
         }
 
-        };
+    };
+
     const handleAdminSubmit = e => {
         handleClickOpen()
-        
+
         if(confirmation){
             const user = { email };
-            fetch('http://localhost:5000/users/admin', {
+            fetch('https://damp-meadow-99405.herokuapp.com/users/admin', {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'
@@ -52,15 +53,14 @@ const MakeAdmin = () => {
                 if (data.modifiedCount) {
                     console.log(data);
                     setSuccess(true);
-                    }
-                })
+                }
+            })
         }
         e.preventDefault()
     }
 
-
     return (
-        <div>
+        <>
             <h2>Make an Admin</h2>
             <form onSubmit={handleAdminSubmit}>
                 <TextField
@@ -72,33 +72,28 @@ const MakeAdmin = () => {
                 <Button type="submit" variant="contained">Make Admin</Button>
             </form>
             {success && <Alert severity= 'success'>Made Admin successfully!</Alert> }
-            <div>
-      
-                <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">
-                    {"Are you sure to make him admin?"}
-                    </DialogTitle>
-                    <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Admin can allow to get all the information of the website.
-                    </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                    <Button onClick={() => getConfirmation(true)}>No</Button>
-                    <Button onClick={() => getConfirmation(false)} autoFocus>
-                        Yes
-                    </Button>
-                    </DialogActions>
-                </Dialog>
-    </div>
-      
-            
-        </div>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                {"Are you sure to make him admin?"}
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Admin can allow to get all the information of the website.
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={() => getConfirmation(true)}>No</Button>
+                <Button onClick={() => getConfirmation(false)} autoFocus>
+                    Yes
+                </Button>
+                </DialogActions>
+            </Dialog> 
+        </>
     );
 };
 

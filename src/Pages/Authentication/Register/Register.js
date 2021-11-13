@@ -3,18 +3,16 @@ import { Box,Button, Chip, Divider, TextField, Typography } from '@mui/material'
 import google from '../../../images/google.png';
 import facebook from '../../../images/facebook.png';
 import { Link } from 'react-router-dom';
-import { useNavigate, useLocation } from 'react-router';
+import { useLocation, useHistory } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 
 const Register = () => {
-    let navigate = useNavigate();
-    let location = useLocation();
-    let from = location.state?.from?.pathname || "/";
+    const location = useLocation();
+    const history = useHistory();
     const {createUser} = useAuth()
     const [registerInfo, setRegisterInfo] = useState({})
 
     const getRegisterInfo = e =>{
-        
         const field = e.target.name;
         const value = e.target.value;
         registerInfo[field]=value;
@@ -22,16 +20,16 @@ const Register = () => {
         setRegisterInfo(newRegisterInfo);
         console.log(registerInfo);
     }
+    
     const handleRegister = e =>{
-        console.log(registerInfo?.email, registerInfo?.password, registerInfo?.name, navigate, from)
-        createUser(registerInfo?.email, registerInfo?.password, registerInfo?.name, navigate, from);
+        createUser(registerInfo?.email, registerInfo?.password, registerInfo?.name, location, history);
         e.preventDefault();
     }
 
     const style ={display:'flex', flexDirection:'column', maxWidth:'550px',margin:'auto', padding:'10px'}
+
     return (
         <Box sx={{ mt:8}}>
-
             <Box sx={style}>
                 <Typography variant='h6'>Register</Typography>
                 <form 
@@ -103,7 +101,6 @@ const Register = () => {
                     </Button>
                 </Box>
             </Box>
-
         </Box>
     );
 };

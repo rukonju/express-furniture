@@ -2,20 +2,27 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { AppBar, Box, Button, IconButton, List, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Outlet } from 'react-router-dom';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
+import MyOrders from '../MyOrders/MyOrders';
+import AdminRoute from '../../Authentication/AdminRoute/AdminRoute';
+import MakeAdmin from '../MakeAdmin/MakeAdmin';
+import AddProduct from '../AddProduct/AddProduct';
+import ManageOrder from '../ManageOrders/ManageOrder';
+import ManageProducts from '../ManageProducts/ManageProducts';
+import Feedback from '../Feedback/Feedback';
+import Payment from '../Payment/Payment';
 
 const drawerWidth = 240;
 
 const DashboardDrawer = (props) =>{
   const { window } = props;
   const {logOut, admin} = useAuth();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [defaultRouteForAdmin, setDefaultRouteForAdmin] = useState(true) 
-  const [defaultRouteForUser, setDefaultRouteForUser] = useState(true) 
+  const [mobileOpen, setMobileOpen] = useState(false); 
+  let{path, url} = useRouteMatch()
   const style = {
     color:'black',
     textDecoration:'none'
@@ -28,14 +35,6 @@ const DashboardDrawer = (props) =>{
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
-    if(admin){
-      setDefaultRouteForAdmin(false);
-      setDefaultRouteForUser(true)
-    }
-    if(!admin){
-      setDefaultRouteForUser(false)
-      setDefaultRouteForAdmin(true);
-    }
   };
 
   const drawer = (
@@ -44,7 +43,7 @@ const DashboardDrawer = (props) =>{
       <Box sx={{ width: '100%'  }}>
         <List component="nav" aria-label="main mailbox folders">
           {!admin && <>
-            <Link style={style} to='myOrder'>
+            <Link style={style} to={`${url}/myOrders`}>
             <ListItemButton
               selected={selectedIndex === 0}
               onClick={(event) => handleListItemClick(event, 0)}
@@ -52,7 +51,7 @@ const DashboardDrawer = (props) =>{
               <ListItemText primary="My Orders" />
             </ListItemButton>
           </Link>
-          <Link style={style} to='payment'>
+          <Link style={style} to={`${url}/payment`}>
             <ListItemButton
               selected={selectedIndex === 1}
               onClick={(event) => handleListItemClick(event, 1)}
@@ -60,7 +59,7 @@ const DashboardDrawer = (props) =>{
               <ListItemText primary="Payment" />
             </ListItemButton>
           </Link>
-          <Link style={style} to='feedback'>
+          <Link style={style} to={`${url}/feedback`}>
             <ListItemButton
               selected={selectedIndex === 2}
               onClick={(event) => handleListItemClick(event, 2)}
@@ -71,7 +70,7 @@ const DashboardDrawer = (props) =>{
           </>}
           {
             admin && <>
-            <Link style={style} to='manageOrders'>
+            <Link style={style} to={`${url}/manageOrders`}>
             <ListItemButton
               selected={selectedIndex === 3}
               onClick={(event) => handleListItemClick(event, 3)}
@@ -79,7 +78,7 @@ const DashboardDrawer = (props) =>{
               <ListItemText primary="Manage Orders" />
             </ListItemButton>
           </Link>
-            <Link style={style} to='addProduct'>
+            <Link style={style} to={`${url}/addProduct`}>
             <ListItemButton
               selected={selectedIndex === 3}
               onClick={(event) => handleListItemClick(event, 3)}
@@ -87,7 +86,7 @@ const DashboardDrawer = (props) =>{
               <ListItemText primary="Add Product" />
             </ListItemButton>
           </Link>
-            <Link style={style} to='manageProducts'>
+            <Link style={style} to={`${url}/manageProducts`}>
             <ListItemButton
               selected={selectedIndex === 3}
               onClick={(event) => handleListItemClick(event, 3)}
@@ -95,7 +94,7 @@ const DashboardDrawer = (props) =>{
               <ListItemText primary="Manage Products" />
             </ListItemButton>
           </Link>
-          <Link style={style} to='admin'>
+          <Link style={style} to={`${url}/makeAdmin`}>
             <ListItemButton
               selected={selectedIndex === 4}
               onClick={(event) => handleListItemClick(event, 4)}
@@ -150,7 +149,7 @@ const DashboardDrawer = (props) =>{
             Dashboard
           </Typography>
           <Link style={style}  to="/" >
-            <Button sx={{textAlign:'right'}} variant='inherit'>Back to Home</Button>
+            <Button variant='inherit'>Back to Home</Button>
           </Link>
           </Box>
         </Toolbar>
@@ -193,11 +192,39 @@ const DashboardDrawer = (props) =>{
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        
-        <Outlet/>
-        
-
-        
+        <Switch>
+          {
+            admin ? <Route exact path={path}>
+            <ManageOrder/>
+          </Route>:<Route exact path={path}>
+            <MyOrders/>
+          </Route>
+          }
+          
+          <Route exact path={`${path}/feedback`}>
+            <Feedback/>
+          </Route>
+          <Route exact path={`${path}/payment`}>
+            <Payment/>
+          </Route>
+          <Route exact path={`${path}/myOrders`}>
+            <MyOrders/>
+          </Route>
+          
+          <AdminRoute path={`${path}/manageOrders`}>
+            <ManageOrder/>
+          </AdminRoute>
+          <AdminRoute path={`${path}/manageProducts`}>
+            <ManageProducts/>
+          </AdminRoute>
+          <AdminRoute path={`${path}/makeAdmin`}>
+            <MakeAdmin></MakeAdmin>
+          </AdminRoute>
+          <AdminRoute path={`${path}/addProduct`}>
+            <AddProduct/>
+          </AdminRoute>
+          
+        </Switch>
         
       </Box>
     </Box>
