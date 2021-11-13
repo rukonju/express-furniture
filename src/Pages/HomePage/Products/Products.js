@@ -1,5 +1,6 @@
-import { Container, Grid } from '@mui/material';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Product from '../Product/Product';
 
 const Products = () => {
@@ -12,11 +13,15 @@ const Products = () => {
     },[])
     return (
         <Container sx={{my:4}}>
-            <Grid container spacing={{ xs: 2, md: 3 }}>
+            <Typography variant='h5' sx={{borderBottom:'4px solid green', p:0, mb:2}}>Our Products </Typography>
+            <Grid container spacing={{ xs: 2, md: 4 }}>
                 {
-                    products.map(product=><Product key={product._id} product={product}></Product>)
+                    products.slice(0, 6).map(product=><Product key={product._id} product={product}></Product>)
                 }
             </Grid>
+            <Typography variant='h5' sx={{ my:2, textAlign:'end' }}>
+                <Link to='/products'> Explore more</Link>
+            </Typography>
         </Container>
     );
 };

@@ -5,10 +5,19 @@ import useAuth from '../../../hooks/useAuth';
 
 const PrivateRoute = ({children}) => {
     const location = useLocation();
-    const {loading, user} = useAuth();
+    const { user} = useAuth();
     
-    if(loading){return <CircularProgress/>}
-    return !user?.email?<Navigate  to="/login" state={{ from: location }} />:children;   
+    if(!user.email){return <CircularProgress/>}
+    else{
+        if(user.email){
+        return children;
+        }
+        else{
+        return <Navigate  to="/login" state={{ from: location }} />
+        }
+    }
+    
+       
 };
 
 export default PrivateRoute;

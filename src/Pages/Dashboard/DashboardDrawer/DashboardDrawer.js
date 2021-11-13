@@ -16,7 +16,10 @@ const DashboardDrawer = (props) =>{
   const [mobileOpen, setMobileOpen] = useState(false);
   const [defaultRouteForAdmin, setDefaultRouteForAdmin] = useState(true) 
   const [defaultRouteForUser, setDefaultRouteForUser] = useState(true) 
-
+  const style = {
+    color:'black',
+    textDecoration:'none'
+  }
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -41,7 +44,7 @@ const DashboardDrawer = (props) =>{
       <Box sx={{ width: '100%'  }}>
         <List component="nav" aria-label="main mailbox folders">
           {!admin && <>
-            <Link to='myOrder'>
+            <Link style={style} to='myOrder'>
             <ListItemButton
               selected={selectedIndex === 0}
               onClick={(event) => handleListItemClick(event, 0)}
@@ -49,7 +52,7 @@ const DashboardDrawer = (props) =>{
               <ListItemText primary="My Orders" />
             </ListItemButton>
           </Link>
-          <Link to='payment'>
+          <Link style={style} to='payment'>
             <ListItemButton
               selected={selectedIndex === 1}
               onClick={(event) => handleListItemClick(event, 1)}
@@ -57,7 +60,7 @@ const DashboardDrawer = (props) =>{
               <ListItemText primary="Payment" />
             </ListItemButton>
           </Link>
-          <Link to='feedback'>
+          <Link style={style} to='feedback'>
             <ListItemButton
               selected={selectedIndex === 2}
               onClick={(event) => handleListItemClick(event, 2)}
@@ -68,7 +71,15 @@ const DashboardDrawer = (props) =>{
           </>}
           {
             admin && <>
-            <Link to='addProduct'>
+            <Link style={style} to='manageOrders'>
+            <ListItemButton
+              selected={selectedIndex === 3}
+              onClick={(event) => handleListItemClick(event, 3)}
+            >
+              <ListItemText primary="Manage Orders" />
+            </ListItemButton>
+          </Link>
+            <Link style={style} to='addProduct'>
             <ListItemButton
               selected={selectedIndex === 3}
               onClick={(event) => handleListItemClick(event, 3)}
@@ -76,7 +87,15 @@ const DashboardDrawer = (props) =>{
               <ListItemText primary="Add Product" />
             </ListItemButton>
           </Link>
-          <Link to='admin'>
+            <Link style={style} to='manageProducts'>
+            <ListItemButton
+              selected={selectedIndex === 3}
+              onClick={(event) => handleListItemClick(event, 3)}
+            >
+              <ListItemText primary="Manage Products" />
+            </ListItemButton>
+          </Link>
+          <Link style={style} to='admin'>
             <ListItemButton
               selected={selectedIndex === 4}
               onClick={(event) => handleListItemClick(event, 4)}
@@ -86,12 +105,13 @@ const DashboardDrawer = (props) =>{
           </Link>
           </>
           }
-
+          <Link style={style} to='/login'>
           <ListItemButton
             onClick={() =>logOut()}
-          >
+            >
             <ListItemText primary="Logout" />
           </ListItemButton>
+            </Link>
         </List>
       </Box> 
     </div>
@@ -104,11 +124,14 @@ const DashboardDrawer = (props) =>{
       <CssBaseline />
       {<AppBar
         position="fixed"
+        
         sx={{
-          maxWidth: { sm: '100%' },
+          maxWidth: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
           color:'white',
+          
           boxShadow:'none',
-          bgcolor:'rgb(14, 102, 85)'
+          bgcolor:'rgb(115, 198, 182)'
         }}
       >
         <Toolbar>
@@ -121,22 +144,25 @@ const DashboardDrawer = (props) =>{
           >
             <MenuIcon />
           </IconButton>}
-          <Typography variant="h6" noWrap component="div">
+          <Box sx={{ml:'auto', display:'flex', flexDirection:'row'}}>
+
+          <Typography  variant="h6" noWrap component="div">
             Dashboard
           </Typography>
-          <Link  to="/" >
-            <Button variant='inherit'>Home</Button>
+          <Link style={style}  to="/" >
+            <Button sx={{textAlign:'right'}} variant='inherit'>Back to Home</Button>
           </Link>
+          </Box>
         </Toolbar>
       </AppBar>}
       <Box
         component="nav"
-        sx={{ maxWidth: { sm: '25%' }, flexShrink: { sm: 0 } }}
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          style={{backgroundColor:'#f9ebea'}}
+          
           container={container}
           variant="temporary"
           open={mobileOpen}
@@ -146,21 +172,16 @@ const DashboardDrawer = (props) =>{
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '25%', border:'0px',
-            bgcolor:'rgb(115, 198, 182 )' },
-            
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', border:0, width: drawerWidth , bgcolor:'rgb(115, 198, 182)'},
           }}
         >
           {drawer}
         </Drawer>
         <Drawer
-          style={{backgroundColor:'#f9ebea'}}
           variant="permanent"
           sx={{
             display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '25vw' , border:'0px',
-            bgcolor:'rgb(115, 198, 182 )', position:'inherit', height:'100vh'},
-            
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', border:0, width: drawerWidth , bgcolor:'rgb(115, 198, 182)'},
           }}
           open
         >

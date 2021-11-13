@@ -1,22 +1,28 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 const PlaceOrder = ({product}) => {
     const {user} = useAuth();
     const [purchaseInfo, setPurchaseInfo] = useState({});
     const [quantityError, setQuantityError] = useState(false);
+    const [orderPlaced, setOrderPlaced] = useState(false)
     const getPurchaseInfo = e =>{
         const field = e.target.name;
         const value = e.target.value;
         purchaseInfo[field]= value;
         if(!purchaseInfo.name){
-            purchaseInfo.name=user?.displayName
+            purchaseInfo.name = user?.displayName
         }
         if(!purchaseInfo.email){
-            purchaseInfo.email=user?.email
+            purchaseInfo.email = user?.email
         }
-        purchaseInfo.product=product;
+        if(!purchaseInfo.quantity){
+            purchaseInfo.quantity=1;
+        }
+        purchaseInfo.product = product;
+        purchaseInfo.status = 'pending';
         const newPurchaseInfo = {...purchaseInfo};
         
         console.log(newPurchaseInfo)
@@ -36,7 +42,11 @@ const PlaceOrder = ({product}) => {
                 body:JSON.stringify(purchaseInfo)
             })
             .then(res=>res.json())
-            .then(result=>console.log(result))
+            .then(result=>{
+                if(result.insertedId){
+                    setOrderPlaced(true)
+                }
+            })
         }
         e.preventDefault();
     }
@@ -89,8 +99,9 @@ const PlaceOrder = ({product}) => {
                             variant="outlined" 
                             />
                             <TextField
-                            helperText={`${quantityError && 'error'}`} 
+                            helperText={`${quantityError? 'Enter a positive number': ''}`} 
                             required
+                            error={quantityError?true:false}
                             onBlur={getPurchaseInfo} 
                             sx={{mt:2}} 
                             type='number' 
@@ -108,6 +119,7 @@ const PlaceOrder = ({product}) => {
                             >
                                 Place Order
                             </Button>
+                            {orderPlaced && <Alert severity="success">Successfully place your order  <Link to='/dashboard'>click here</Link> to see</Alert>}
                         </form>
                         </Box>
     );

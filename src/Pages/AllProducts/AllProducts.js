@@ -1,5 +1,6 @@
 import { Container, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import Footer from '../../Shared/Footer/Footer';
 import Navbar from '../../Shared/Navigation/Navbar/Navbar';
 import Product from '../HomePage/Product/Product';
 
@@ -22,6 +23,7 @@ const AllProducts = () => {
                 }
             </Grid>
         </Container>
+        <Footer/>
         </>
     
     );

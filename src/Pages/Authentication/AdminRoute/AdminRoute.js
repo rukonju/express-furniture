@@ -6,10 +6,16 @@ import useAuth from '../../../hooks/useAuth';
 
 const AdminRoute = ({children}) => {
     const location = useLocation();
-    const {loading, admin} = useAuth();
+    const {admin} = useAuth();
     
-    if(loading){return <CircularProgress/>}
-    return admin?children:<Navigate  to="/login" state={{ from: location }} />;   
+    if(!admin){return <CircularProgress/>}
+    if(admin){
+        return children;
+    }
+    else{
+        return <Navigate  to="/login" state={{ from: location }} />
+    }
+ 
 };
 
 export default AdminRoute;

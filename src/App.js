@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import AuthProvider from './context/AuthProvider/AuthProvider';
+import About from './Pages/About/About';
 import AllProducts from './Pages/AllProducts/AllProducts';
 import AdminRoute from './Pages/Authentication/AdminRoute/AdminRoute';
 import Login from './Pages/Authentication/Login/Login';
@@ -11,10 +12,11 @@ import AddProduct from './Pages/Dashboard/AddProduct/AddProduct';
 import DashboardDrawer from './Pages/Dashboard/DashboardDrawer/DashboardDrawer';
 import Feedback from './Pages/Dashboard/Feedback/Feedback';
 import MakeAdmin from './Pages/Dashboard/MakeAdmin/MakeAdmin';
+import ManageOrder from './Pages/Dashboard/ManageOrders/ManageOrder';
+import ManageProducts from './Pages/Dashboard/ManageProducts/ManageProducts';
 import MyOrders from './Pages/Dashboard/MyOrders/MyOrders';
 import Payment from './Pages/Dashboard/Payment/Payment';
 import Home from './Pages/HomePage/Home/Home';
-import Purchase from './Pages/PurchasePage/Purchase/Purchase';
 import PurchaseMain from './Pages/PurchasePage/PurchaseMain/PurchaseMain';
 
 
@@ -39,9 +41,12 @@ function App() {
               <Route path='feedback' element={<Feedback />}/>
             </Route>
             <Route path='dashboard/*' element={<AdminRoute><DashboardDrawer /></AdminRoute> }>
+              <Route path='manageOrders' element={<ManageOrder />}/>
               <Route path='addProduct' element={<AddProduct />}/>
+              <Route path='manageProducts' element={<ManageProducts />}/>
               <Route path='admin' element={<MakeAdmin />}/>
             </Route>
+            <Route path="/about" element={<About />}/>
           </Routes>
         </BrowserRouter>
       </AuthProvider>  

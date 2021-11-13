@@ -14,6 +14,8 @@ const useFirebase =  () =>{
     const [loading, setLoading] = useState(true);
     const [admin, setAdmin] = useState(false);
     const [token, setToken] = useState('');
+    const [orderCancelId, setOrderCancelId] = useState('');
+    const [deletedProductId, setDeletedProductId] = useState('');
     console.log(user)
 
     const createUser = (email, password, name, navigate, from) =>{
@@ -81,8 +83,10 @@ const useFirebase =  () =>{
 
     useEffect(() => {
         const unsubscribed = onAuthStateChanged(auth, (user) => {
+            setLoading(true);
             if (user) {
                 setUser(user);
+                setLoading(false);
                 getIdToken(user)
                     .then(idToken => {
                         setToken(idToken);
@@ -96,9 +100,13 @@ const useFirebase =  () =>{
     }, [auth])
 
     useEffect(() => {
+        setLoading(true)
         fetch(`http://localhost:5000/users/${user.email}`)
             .then(res => res.json())
-            .then(data => setAdmin(data.admin))
+            .then(data => {
+                setAdmin(data.admin);
+            })
+            .finally(setLoading(false))
     }, [user.email])
 
     const saveUser = (email, displayName, method) => {
@@ -113,16 +121,45 @@ const useFirebase =  () =>{
             .then()
     }
 
+    const handleDeleteProduct = (id) =>{
+        const url = `http://localhost:5000/products/${id}`
+        fetch(url,{
+            method: 'DELETE'
+        })
+        .then(res=>res.json())
+        .then(result=>{
+            if(result.deletedCount>0){
+                setDeletedProductId(id)
+            }
+        })
+    }
+    const handleCancelOrder = (id) =>{
+        const url = `http://localhost:5000/orders/${id}`
+        fetch(url,{
+            method: 'DELETE'
+        })
+        .then(res=>res.json())
+        .then(result=>{
+            if(result.deletedCount>0){
+                setOrderCancelId(id)
+            }
+        })
+    }
+
     return{
         user,
         error,
         admin,
         token,
         loading,
+        orderCancelId,
+        deletedProductId,
         logOut,
         signIn,
         createUser,
         googleSignIn,
+        handleCancelOrder,
+        handleDeleteProduct
     }
 }
 

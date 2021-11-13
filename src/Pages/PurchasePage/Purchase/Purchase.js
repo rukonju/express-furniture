@@ -16,7 +16,7 @@ const Purchase = () => {
     }, [id]);
 
     return (
-            <Grid container sx={{mt:4}} spacing={2}>
+            <Grid container sx={{mt:4, px:1}} spacing={2}>
                 
                     <Grid item xs={12} sm={6} md={3}>
                         <img style={{background:'rgb(115, 198, 182)'}} width="100%" src={product?.photoUrl} alt="" />  

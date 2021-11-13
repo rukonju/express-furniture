@@ -1,21 +1,23 @@
-import { Button, Container, Rating, TextareaAutosize, Typography } from '@mui/material';
+import { Button, Container, Rating, TextareaAutosize, Typography, Dialog, DialogTitle, DialogActions } from '@mui/material';
 import React, { useState } from 'react';
 import useAuth from '../../../hooks/useAuth';
 
 const Feedback = () => {
     const {user} = useAuth()
-    const [rating, setRating] = useState(0)
-    console.log(rating)
     const [reviewInfo, setReviewInfo] = useState({});
+    const [rating, setRating] = useState(null);
+    const [open, setOpen] = useState(false);
+    const [success, setSuccess] = useState(null);
+    console.log(rating)
     const getReviewInfo = e =>{
         const field = e.target.name;
         const value = e.target.value;
         reviewInfo[field] = value;
-        const newReviewInfo ={...reviewInfo}
+        const newReviewInfo ={...reviewInfo};
         newReviewInfo.rating= rating;
-        newReviewInfo.name= user.displayName;
-        newReviewInfo.email= user.email;
-        newReviewInfo.photo= user.photoURL;
+        newReviewInfo.name= user?.displayName;
+        newReviewInfo.email= user?.email;
+        newReviewInfo.photo= user?.photoURL;
         setReviewInfo(newReviewInfo);
         console.log(newReviewInfo)
     }
@@ -30,12 +32,21 @@ const Feedback = () => {
             body: JSON.stringify(reviewInfo)
         })
         .then(res=>res.json())
-        .then(result=>console.log(result))
+        .then(result=>{
+            if(result.insertedId){
+                setOpen(true);
+                setSuccess(true);
+            }
+        })
         e.preventDefault();
     }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
     return (
         <Container>
-            <Typography>Rating</Typography>
+            <Typography>Comment</Typography>
             <form onSubmit={handleReview}>
             <TextareaAutosize
             onBlur={getReviewInfo}
@@ -44,16 +55,36 @@ const Feedback = () => {
             placeholder="Minimum 3 rows"
             style={{ maxWidth: '700px' , fontSize:'20px'}}
             />
-            <Typography component="legend">Controlled</Typography>
+            <Typography component="legend">Rating</Typography>
             <Rating
-                name="simple-controlled"
+                name="rating"
+                onBlur={getReviewInfo}
                 value={rating}
+                
                 onChange={(event, newValue) => {
                 setRating(newValue);
                 }}
             /> <br />
-            <Button type="submit" variant='contained'>Review</Button>
+            <Button  type="submit" variant='contained'>Review</Button>
             </form>
+            {
+             <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Thank you for riview"}
+                </DialogTitle>
+                <DialogActions>
+                  
+                  <Button onClick={handleClose} autoFocus>
+                    OK
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            }
         </Container>
     );
 };

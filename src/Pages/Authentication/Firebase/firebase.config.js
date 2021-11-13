@@ -1,11 +1,11 @@
 
 const firebaseConfig = {
-        apiKey: "AIzaSyB8JB_4b9jHKgoBJybst-HPJCwVZF3YiaQ",
-        authDomain: "furniture-ecommerce-shop.firebaseapp.com",
-        projectId: "furniture-ecommerce-shop",
-        storageBucket: "furniture-ecommerce-shop.appspot.com",
-        messagingSenderId: "413793503799",
-        appId: "1:413793503799:web:3b9096cdf94dd016b78db2"
+        apiKey:process.env.REACT_APP_API_KEY,
+        authDomain:process.env.REACT_APP_AUTH_DOMAIN,
+        projectId:process.env.REACT_APP_PROJECT_ID,
+        storageBucket:process.env.REACT_APP_STORAGE_BUCKET,
+        messagingSenderId:process.env.REACT_APP_MESSAGING_SENDER_ID,
+        appId:process.env.REACT_APP_APP_ID
 
 };
 
