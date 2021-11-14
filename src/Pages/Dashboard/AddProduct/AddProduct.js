@@ -109,7 +109,7 @@ const AddProduct = () => {
                     Submit
                 </Button>
             </form>
-            {productAdded && <Alert severity="success">This is a success alert — check it out!</Alert>}
+            {productAdded && <Alert severity="success">Product is added to database successfully</Alert>}
         </Box>
     );
 };

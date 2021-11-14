@@ -50,7 +50,7 @@ const Feedback = () => {
             onBlur={getReviewInfo}
             name='comment'
             minRows={4}
-            placeholder="Minimum 3 rows"
+            placeholder="Write your comment here..."
             style={{ maxWidth: '700px' , fontSize:'20px'}}
             />
             <Typography component="legend">Rating</Typography>
@@ -72,7 +72,7 @@ const Feedback = () => {
                 aria-describedby="alert-dialog-description"
               >
                 <DialogTitle id="alert-dialog-title">
-                  {"Thank you for riview"}
+                  {"Thank you for review"}
                 </DialogTitle>
                 <DialogActions>
                   

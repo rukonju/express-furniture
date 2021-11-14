@@ -6,9 +6,10 @@ import useAuth from '../../../hooks/useAuth';
 
 const AdminRoute = ({children, ...rest}) => {
 
-    const {user, admin,  loading} = useAuth();
+    const {user, admin } = useAuth();
+    console.log(admin)
     
-    if(loading){return <Box sx={{display:''}}>
+    if(!admin){return <Box sx={{display:''}}>
         <CircularProgress sx={{position:'absolute', top:'50%', left:'47%'}}/> 
         </Box>}
     return(

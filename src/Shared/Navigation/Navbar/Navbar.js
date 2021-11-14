@@ -1,12 +1,13 @@
 import React from 'react';
-import { Box, AppBar, useMediaQuery, useTheme, Button, Toolbar, Typography } from '@mui/material';
+import { Box, AppBar, useMediaQuery, useTheme, Button, Toolbar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import NavDrawer from '../NavDrawer/NavDrawer';
 import useAuth from '../../../hooks/useAuth';
 import logo from '../../../images/logo.png'
+import User from '../../User/User';
 
 const Navbar = () => {
-    const {user, logOut} = useAuth()
+    const {user} = useAuth()
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const style = {
@@ -17,13 +18,13 @@ const Navbar = () => {
     
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{backgroundColor:'rgba(249, 235, 234, 0.6 )', color:'black'}}>
+            <AppBar position="static" sx={{backgroundColor:'rgba(232, 246, 243 )', color:'black'}}>
                 <Toolbar>
                     <Link to='/'>
-                        <img src={logo} alt="" />
+                        <img src={logo} alt="" width='100%' />
                     </Link>
                     {
-                        isMobile ? <NavDrawer/> 
+                        isMobile ? <NavDrawer /> 
                         :
                         <Box sx={{ display: 'flex', alignItems: 'center', ml:'auto' }} >
                             <Link style={style} to="/home" >
@@ -40,8 +41,7 @@ const Navbar = () => {
                                 <Link style={style} to="/dashboard" >
                                 <Button variant='inherit'>Dashboard</Button>
                                 </Link>
-                                <Button onClick={() => logOut()} variant='inherit'>Logout </Button>
-                                <Typography>{user?.displayName}</Typography>
+                                <User/>
                                 </> 
                                 :
                                 <Link style={style} to="/login" >

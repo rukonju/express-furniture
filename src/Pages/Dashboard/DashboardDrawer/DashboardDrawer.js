@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { AppBar, Box, Button, IconButton, List, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, IconButton, List, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -15,6 +15,8 @@ import ManageOrder from '../ManageOrders/ManageOrder';
 import ManageProducts from '../ManageProducts/ManageProducts';
 import Feedback from '../Feedback/Feedback';
 import Payment from '../Payment/Payment';
+import { Home } from '@mui/icons-material';
+import User from '../../../Shared/User/User';
 
 const drawerWidth = 240;
 
@@ -143,14 +145,16 @@ const DashboardDrawer = (props) =>{
           >
             <MenuIcon />
           </IconButton>}
-          <Box sx={{ml:'auto', display:'flex', flexDirection:'row'}}>
-
-          <Typography  variant="h6" noWrap component="div">
-            Dashboard
-          </Typography>
-          <Link style={style}  to="/" >
-            <Button variant='inherit'>Back to Home</Button>
-          </Link>
+          <Box sx={{ml:'auto', display:'flex', flexDirection:'row', alignItems:'center'}}>
+            <Typography sx={{py:2}} variant="h6" noWrap component="div">
+              Dashboard
+            </Typography>
+            <Link style={style}  to="/" >
+              <IconButton sx={{ml:2}} variant='inherit'>
+                <Home sx={{ fontSize: 40 }} />
+              </IconButton>
+            </Link>
+            <User/>
           </Box>
         </Toolbar>
       </AppBar>}
@@ -210,7 +214,6 @@ const DashboardDrawer = (props) =>{
           <Route exact path={`${path}/myOrders`}>
             <MyOrders/>
           </Route>
-          
           <AdminRoute path={`${path}/manageOrders`}>
             <ManageOrder/>
           </AdminRoute>
@@ -223,9 +226,7 @@ const DashboardDrawer = (props) =>{
           <AdminRoute path={`${path}/addProduct`}>
             <AddProduct/>
           </AdminRoute>
-          
         </Switch>
-        
       </Box>
     </Box>
   );

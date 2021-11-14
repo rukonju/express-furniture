@@ -3,14 +3,15 @@ import { Box,Button, Chip, Divider, TextField, Typography } from '@mui/material'
 import google from '../../../images/google.png';
 import facebook from '../../../images/facebook.png';
 import { Link } from 'react-router-dom';
-import { useLocation, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 
 const Register = () => {
-    const location = useLocation();
+
     const history = useHistory();
     const {createUser} = useAuth()
     const [registerInfo, setRegisterInfo] = useState({})
+    const [error, setError] = useState(false)
 
     const getRegisterInfo = e =>{
         const field = e.target.name;
@@ -18,11 +19,17 @@ const Register = () => {
         registerInfo[field]=value;
         const newRegisterInfo = {...registerInfo};
         setRegisterInfo(newRegisterInfo);
-        console.log(registerInfo);
+        setError(false)
     }
     
     const handleRegister = e =>{
-        createUser(registerInfo?.email, registerInfo?.password, registerInfo?.name, location, history);
+        if(registerInfo.password === registerInfo.password2){
+            createUser(registerInfo?.email, registerInfo?.password, registerInfo?.name, history);
+            setError(false)
+        }
+        else{
+            setError(true)
+        }
         e.preventDefault();
     }
 
@@ -37,6 +44,7 @@ const Register = () => {
                 style={{display:'flex', flexDirection:'column' }}
                 >
                 <TextField 
+                required
                 onBlur={getRegisterInfo} 
                 sx={{mt:2}} 
                 type='text' 
@@ -45,6 +53,7 @@ const Register = () => {
                 variant="outlined" 
                 />
                 <TextField 
+                required
                 onBlur={getRegisterInfo} 
                 sx={{mt:2}} 
                 type='email' 
@@ -53,6 +62,7 @@ const Register = () => {
                 variant="outlined" 
                 />
                 <TextField 
+                required
                 onBlur={getRegisterInfo} 
                 sx={{mt:2}} 
                 type='password' 
@@ -61,6 +71,9 @@ const Register = () => {
                 variant="outlined" 
                 />
                 <TextField 
+                error={error ? true:false}
+                helperText={`${error?'Password did not match' :''}`}
+                required
                 onBlur={getRegisterInfo} 
                 sx={{mt:2}} 
                 type='password' 

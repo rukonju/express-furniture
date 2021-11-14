@@ -34,10 +34,12 @@ const Login = () => {
                 style={{display:'flex', flexDirection:'column', padding:'10px'}}
                 >
                 <TextField 
+                required
                 onBlur={getLoginInfo} 
                 sx={{mt:2, py:1}} type='email' label="Email" variant="outlined" name='email' 
                 />
                 <TextField 
+                required
                 onBlur={getLoginInfo} 
                 sx={{mt:2}} type='password' label="Password" variant="outlined" name='password' 
                 />

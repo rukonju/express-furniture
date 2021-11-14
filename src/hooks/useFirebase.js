@@ -17,7 +17,7 @@ const useFirebase =  () =>{
     const [deletedProductId, setDeletedProductId] = useState('');
     console.log(user)
 
-    const createUser = (email, password, name, location, history) =>{
+    const createUser = (email, password, name, history) =>{
 
         setLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
@@ -30,12 +30,11 @@ const useFirebase =  () =>{
                 displayName: name
               })
               .then(() => {
-                  setUser(newUser)
-                  const destination = location?.state?.from || '/';
-                    history.replace(destination)
+                    setUser(newUser);
+                    history.replace('/');
               })
               .catch((error) => {
-                console.log(error)
+                setError(error.message);
               });
         })
         .catch((error) => {
@@ -49,10 +48,10 @@ const useFirebase =  () =>{
         setLoading(true)
         signInWithPopup(auth, googleProvider)
         .then((result) => {
-            const {displayName, email} = result?.user;
+            const {displayName, email} = result.user;
             saveUser(email, displayName, 'PUT');
             const destination = location?.state?.from || '/';
-            history.replace(destination)
+            history.replace(destination);
         })
         .catch((error) => {
             setError(error.message);
@@ -74,6 +73,7 @@ const useFirebase =  () =>{
     }
 
     const logOut = () =>{
+        setLoading(true);
         signOut(auth)
         .then(() => {
             setUser({})
@@ -89,7 +89,6 @@ const useFirebase =  () =>{
 
             if (user) {
                 setUser(user);
-
             } 
             else {
                 setUser({})

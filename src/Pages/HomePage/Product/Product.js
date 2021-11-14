@@ -1,20 +1,26 @@
-import { Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './product.css'
 
 const Product = ({product}) => {
     const{_id, name, Color, metarial, photoUrl, price} = product;
     
     return (
         <Grid item xs={12} sm={6} md={4}>
-            <Card elevation={16} sx={{ maxWidth: '100%' }}>
-                <CardMedia
+            <Card className="card" elevation={16} sx={{ maxWidth: '100%' }}>
+                <Box sx={{position:'relative'}}>
+                    <CardMedia
                     sx={{bgcolor:'rgb(115, 198, 182)'}}
                     component="img"
                     alt="green iguana"
                     width="100%"
                     image={photoUrl}
                     />
+                    <Link className="Button"  style={{textDecoration:'none', position:'absolute'}} to={`/purchase/${_id}`}>
+                        Purchase
+                    </Link>
+                </Box>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                     {name}
@@ -26,11 +32,9 @@ const Product = ({product}) => {
                     Metarial: {metarial}
                     </Typography>
                     <Typography gutterBottom variant="h7" component="div">
-                    Price: {price}
+                    Price: {price} BDT
                     </Typography>
-                    <Link style={{textDecoration:'none'}} to={`/purchase/${_id}`}>
-                        <Button color= 'success' variant="contained" size="small" >Purchase</Button>
-                    </Link>
+                    
                 </CardContent>
             </Card>
         </Grid>
