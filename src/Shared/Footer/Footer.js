@@ -30,7 +30,7 @@ const Footer = () => {
                         <Typography>Location: Sherpur Town,Sherpur,Mymensingh.</Typography>
                     </Grid>
                 </Grid>
-                <Typography sx={{py:4, textAlign:'center'}}>Copyright © 2021 Regal Furniture. All right reserved.</Typography>
+                <Typography sx={{py:4, textAlign:'center'}}>Copyright © 2021 Express Furniture. All right reserved.</Typography>
             </Container>
         </Box>
     );

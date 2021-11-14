@@ -10,6 +10,7 @@ import Register from './Pages/Authentication/Register/Register';
 import DashboardDrawer from './Pages/Dashboard/DashboardDrawer/DashboardDrawer';
 import Home from './Pages/HomePage/Home/Home';
 import PurchaseMain from './Pages/PurchasePage/PurchaseMain/PurchaseMain';
+import PageNotFound from './Pages/PageNotFound/PageNotFound';
 
 function App() {
   
@@ -40,6 +41,9 @@ function App() {
             </PrivateRoute>
             <Route path="/about">
               <About />
+            </Route>
+            <Route path="*">
+              <PageNotFound />
             </Route>
           </Switch>
         </Router>

@@ -28,6 +28,8 @@ const PlaceOrder = ({product}) => {
         setPurchaseInfo(newPurchaseInfo);
     };
 
+    
+
     const handlePurchase = e =>{
         if(purchaseInfo.quantity<0){
             setQuantityError(true)
@@ -59,6 +61,7 @@ const PlaceOrder = ({product}) => {
                         <Typography variant='h6'>Place Order</Typography>
                         <form 
                             onSubmit={handlePurchase} 
+                            
                             style={{display:'flex', flexDirection:'column',}}
                             >
                             <TextField
@@ -84,7 +87,7 @@ const PlaceOrder = ({product}) => {
                             required 
                             sx={{mt:2}} 
                             onBlur={getPurchaseInfo} 
-                            type='num' 
+                            type='num'
                             name="phone" 
                             label="Phone" 
                             variant="outlined" 

@@ -3,7 +3,8 @@ import { Button, TextField, Alert, Dialog, DialogTitle, DialogContent, DialogCon
 
 const MakeAdmin = () => {
     const [email, setEmail] = useState('');
-    const [success, setSuccess] = useState('');
+    const [success, setSuccess] = useState(false);
+    const [notSuccess, setNotSuccess] = useState(false);
     const [confirmation, setConfirmation] = useState(false);
     const [open, setOpen] = useState(false);
 
@@ -50,8 +51,11 @@ const MakeAdmin = () => {
             })
             .then(res => res.json())
             .then(data => {
-                if (data.modifiedCount) {
+                if (data.modifiedCount>0) {
                     setSuccess(true);
+                }
+                else{
+                    setNotSuccess(true);
                 }
             })
         }
@@ -63,6 +67,7 @@ const MakeAdmin = () => {
             <h2>Make an Admin</h2>
             <form onSubmit={handleAdminSubmit}>
                 <TextField
+                    required
                     sx={{ width: '50%' }}
                     label="Email"
                     type="email"
@@ -71,6 +76,7 @@ const MakeAdmin = () => {
                 <Button type="submit" variant="contained">Make Admin</Button>
             </form>
             {success && <Alert severity= 'success'>Made Admin successfully!</Alert> }
+            {notSuccess && <Alert severity= 'error'>Email address is not valid!</Alert> }
             <Dialog
                 open={open}
                 onClose={handleClose}

@@ -56,7 +56,6 @@ const ManageOrder = () => {
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
-            backgroundColor: theme.palette.common.black,
             color: theme.palette.common.white,
         },
         [`&.${tableCellClasses.body}`]: {
@@ -76,7 +75,7 @@ const ManageOrder = () => {
         <>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                    <TableHead>
+                    <TableHead sx={{bgcolor:"gray"}}>
                     <TableRow>
                         <StyledTableCell>Name</StyledTableCell>
                         <StyledTableCell align="right">Email</StyledTableCell>

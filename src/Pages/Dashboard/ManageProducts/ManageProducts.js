@@ -26,7 +26,6 @@ const ManageProducts = () => {
     };
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
-          backgroundColor: theme.palette.common.black,
           color: theme.palette.common.white,
         },
         [`&.${tableCellClasses.body}`]: {
@@ -56,7 +55,7 @@ const ManageProducts = () => {
         <>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
+              <TableHead sx={{bgcolor:'gray'}}>
                 <TableRow>
                   <StyledTableCell>ID</StyledTableCell>
                   <StyledTableCell align="right">Name</StyledTableCell>

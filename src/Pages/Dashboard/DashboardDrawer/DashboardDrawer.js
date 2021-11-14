@@ -48,7 +48,10 @@ const DashboardDrawer = (props) =>{
             <Link style={style} to={`${url}/myOrders`}>
             <ListItemButton
               selected={selectedIndex === 0}
-              onClick={(event) => handleListItemClick(event, 0)}
+              onClick={(event) => {
+                handleListItemClick(event, 0); 
+                handleDrawerToggle()
+              }}
             >
               <ListItemText primary="My Orders" />
             </ListItemButton>
@@ -56,7 +59,10 @@ const DashboardDrawer = (props) =>{
           <Link style={style} to={`${url}/payment`}>
             <ListItemButton
               selected={selectedIndex === 1}
-              onClick={(event) => handleListItemClick(event, 1)}
+              onClick={(event) =>{
+                handleListItemClick(event, 1)
+                handleDrawerToggle()
+              }}
             >
               <ListItemText primary="Payment" />
             </ListItemButton>
@@ -64,7 +70,10 @@ const DashboardDrawer = (props) =>{
           <Link style={style} to={`${url}/feedback`}>
             <ListItemButton
               selected={selectedIndex === 2}
-              onClick={(event) => handleListItemClick(event, 2)}
+              onClick={(event) => {
+                handleListItemClick(event, 2)
+                handleDrawerToggle()
+              }}
             >
               <ListItemText primary="Review" />
             </ListItemButton>
@@ -75,31 +84,43 @@ const DashboardDrawer = (props) =>{
             <Link style={style} to={`${url}/manageOrders`}>
             <ListItemButton
               selected={selectedIndex === 3}
-              onClick={(event) => handleListItemClick(event, 3)}
+              onClick={(event) => {
+                handleListItemClick(event, 3)
+                handleDrawerToggle()
+              }}
             >
               <ListItemText primary="Manage Orders" />
             </ListItemButton>
           </Link>
             <Link style={style} to={`${url}/addProduct`}>
             <ListItemButton
-              selected={selectedIndex === 3}
-              onClick={(event) => handleListItemClick(event, 3)}
+              selected={selectedIndex === 4}
+              onClick={(event) => {
+                handleListItemClick(event, 4)
+                handleDrawerToggle()
+              }}
             >
               <ListItemText primary="Add Product" />
             </ListItemButton>
           </Link>
             <Link style={style} to={`${url}/manageProducts`}>
             <ListItemButton
-              selected={selectedIndex === 3}
-              onClick={(event) => handleListItemClick(event, 3)}
+              selected={selectedIndex === 5}
+              onClick={(event) => {
+                handleListItemClick(event, 5)
+                handleDrawerToggle()
+              }}
             >
               <ListItemText primary="Manage Products" />
             </ListItemButton>
           </Link>
           <Link style={style} to={`${url}/makeAdmin`}>
             <ListItemButton
-              selected={selectedIndex === 4}
-              onClick={(event) => handleListItemClick(event, 4)}
+              selected={selectedIndex === 6}
+              onClick={(event) => {
+                handleListItemClick(event, 6)
+                handleDrawerToggle()
+              }}
             >
               <ListItemText primary="Make admin" />
             </ListItemButton>
@@ -127,12 +148,11 @@ const DashboardDrawer = (props) =>{
         position="fixed"
         
         sx={{
-          maxWidth: { sm: `calc(100% - ${drawerWidth}px)` },
+          maxWidth: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          color:'white',
-          
+          color:'black',          
           boxShadow:'none',
-          bgcolor:'rgb(115, 198, 182)'
+          bgcolor:'rgb(209, 242, 235)'
         }}
       >
         <Toolbar>
@@ -141,7 +161,7 @@ const DashboardDrawer = (props) =>{
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { md: 'none' } }}
           >
             <MenuIcon />
           </IconButton>}
@@ -160,7 +180,7 @@ const DashboardDrawer = (props) =>{
       </AppBar>}
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ width: { md: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -174,8 +194,8 @@ const DashboardDrawer = (props) =>{
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', border:0, width: drawerWidth , bgcolor:'rgb(115, 198, 182)'},
+            display: { xs: 'block', sm: 'block', md:'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', border:0, width: drawerWidth ,color:'white', bgcolor:'rgb(209, 242, 235)'},
           }}
         >
           {drawer}
@@ -183,8 +203,8 @@ const DashboardDrawer = (props) =>{
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', border:0, width: drawerWidth , bgcolor:'rgb(115, 198, 182)'},
+            display: { xs: 'none', sm: 'none', md:'block' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', border:0, width: drawerWidth , color:'white', bgcolor:'rgb(209, 242, 235)'},
           }}
           open
         >
@@ -193,7 +213,7 @@ const DashboardDrawer = (props) =>{
       </Box>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
         <Switch>
