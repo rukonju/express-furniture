@@ -9,9 +9,7 @@
 ### Also implemented the `AdminRout` &  `PrivateRoute`
 ### Website is fully responsive useing `Metarial UI`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
 ### Visit this side and feel free to review
 
-Live link : [https://facebook.github.io/create-react-app/docs/code-splitting]
+Live link : [https://furniture-ecommerce-shop.web.app]
 
