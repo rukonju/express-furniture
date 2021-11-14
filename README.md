@@ -4,7 +4,7 @@
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-### Code Splitting
+### Visit this side and feel free to review
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Live link : [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
