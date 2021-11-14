@@ -7,7 +7,7 @@ const Feedback = () => {
     const [reviewInfo, setReviewInfo] = useState({});
     const [rating, setRating] = useState(null);
     const [open, setOpen] = useState(false);
-    console.log(rating)
+
     const getReviewInfo = e =>{
         const field = e.target.name;
         const value = e.target.value;
@@ -18,7 +18,6 @@ const Feedback = () => {
         newReviewInfo.email= user?.email;
         newReviewInfo.photo= user?.photoURL;
         setReviewInfo(newReviewInfo);
-        console.log(newReviewInfo)
     }
 
     const handleReview = e =>{

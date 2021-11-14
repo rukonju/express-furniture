@@ -7,9 +7,7 @@ import { AddShoppingCart, Delete } from '@mui/icons-material';
 
 const ManageOrder = () => {
     const {handleCancelOrder, orderCancelId} = useAuth();
-    console.log(orderCancelId)
     const [orders, setOrders] = useState([]);
-    console.log(orders)
     const [orderId, setOrderId] = useState('');
     const [orderStatus, setOrderStatus] = useState('');
     const [open, setOpen] = useState(false);
@@ -39,7 +37,6 @@ const ManageOrder = () => {
     const updateOrder = (status) => {
         setOrderStatus(status)
         const order = { status };
-        console.log(status)
         fetch('https://damp-meadow-99405.herokuapp.com/orders/status', {
             method: 'PUT',
             headers: {
@@ -50,7 +47,7 @@ const ManageOrder = () => {
         .then(res => res.json())
         .then(data => {
             if (data.modifiedCount) {
-                console.log(data);
+
             }
         })
     };

@@ -25,8 +25,6 @@ const PlaceOrder = ({product}) => {
         purchaseInfo.product = product;
         purchaseInfo.status = 'pending';
         const newPurchaseInfo = {...purchaseInfo};
-        
-        console.log(newPurchaseInfo)
         setPurchaseInfo(newPurchaseInfo);
     };
 

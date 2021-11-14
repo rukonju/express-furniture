@@ -6,7 +6,6 @@ import Purchase from '../Purchase/Purchase';
 
 const PurchaseMain = () => {
     const {id} = useParams();
-    console.log(id)
     return (
         <>
             <Navbar/>

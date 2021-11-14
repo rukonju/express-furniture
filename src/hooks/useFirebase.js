@@ -15,7 +15,6 @@ const useFirebase =  () =>{
     const [admin, setAdmin] = useState(false);
     const [orderCancelId, setOrderCancelId] = useState('');
     const [deletedProductId, setDeletedProductId] = useState('');
-    console.log(user)
 
     const createUser = (email, password, name, history) =>{
 
@@ -24,7 +23,6 @@ const useFirebase =  () =>{
         .then((userCredential) => {
             const newUser = { email, displayName: name };
             setUser(newUser);
-            console.log( userCredential.user);
             saveUser(email, name, 'POST');
             updateProfile(auth.currentUser, {
                 displayName: name
@@ -115,8 +113,8 @@ const useFirebase =  () =>{
             },
             body: JSON.stringify(user)
         })
-        .then(res=>res.json())
-        .then(result=>console.log(result))
+        .then();
+
     }
 
     const handleDeleteProduct = (id) =>{

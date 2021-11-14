@@ -8,7 +8,6 @@ const AddProduct = () => {
 
     const handleChange = (event) => {
         setMetarial(event.target.value);
-        console.log(metarial)
     };
 
     const getProductInfo = e =>{
@@ -17,7 +16,6 @@ const AddProduct = () => {
         productInfo[feild]=value;
         const newProductInfo = {...productInfo}
         setProductInfo(newProductInfo);
-        console.log(productInfo)
     };
 
     const postProduct = e =>{
