@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Box,Button, Chip, Divider, TextField, Typography } from '@mui/material';
+import { Box,Button, Chip, Divider, Paper, TextField, Typography } from '@mui/material';
 import google from '../../../images/google.png';
 import facebook from '../../../images/facebook.png';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 
 const Register = () => {
-
+    const location = useLocation();
     const history = useHistory();
-    const {createUser} = useAuth()
+    const {createUser, googleSignIn} = useAuth()
     const [registerInfo, setRegisterInfo] = useState({})
     const [error, setError] = useState(false)
 
@@ -37,7 +37,7 @@ const Register = () => {
 
     return (
         <Box sx={{ mt:8}}>
-            <Box sx={style}>
+            <Paper elevation={3} sx={style}>
                 <Typography variant='h6'>Register</Typography>
                 <form 
                 onSubmit={handleRegister} 
@@ -98,7 +98,9 @@ const Register = () => {
                     <Chip label="OR" variant="outlined" />
                 </Divider>
                 <Box style={style}>
-                    <Button sx={{mt:2}} color='secondary' variant='outlined'>
+                    <Button 
+                        onClick={() => googleSignIn(location, history)}
+                        sx={{mt:2}} color='secondary' variant='outlined'>
                         <img 
                         style={{alignItems:'left'}} 
                         src={google} alt="" 
@@ -113,7 +115,7 @@ const Register = () => {
                         <Typography sx={{ml:1}}>Sign Up With Facebook</Typography>
                     </Button>
                 </Box>
-            </Box>
+            </Paper>
         </Box>
     );
 };

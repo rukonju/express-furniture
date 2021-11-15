@@ -36,9 +36,9 @@ const AddProduct = () => {
     };
 
     return (
-        <Box sx={{display:'flex', flexDirection:'column', maxWidth:'550px',margin:'auto'}}>
+        <Box sx={{display:'flex', flexDirection:'column', maxWidth:'550px',margin:'auto', P:1}}>
             <Typography variant='h6'>Add a Product</Typography>
-            <form onSubmit={postProduct} style={{display:'flex', flexDirection:'column', padding:'10px'}}>
+            <form onSubmit={postProduct} style={{display:'flex', flexDirection:'column'}}>
                 <TextField 
                 onBlur={getProductInfo} 
                 sx={{mt:2}}

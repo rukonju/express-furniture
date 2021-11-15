@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Button, TextField, Alert, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
+import { Button, TextField, Alert, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography } from '@mui/material';
 
 const MakeAdmin = () => {
     const [email, setEmail] = useState('');
     const [success, setSuccess] = useState(false);
     const [notSuccess, setNotSuccess] = useState(false);
-    const [confirmation, setConfirmation] = useState(false);
     const [open, setOpen] = useState(false);
 
     const handleOnBlur = e => {
@@ -16,32 +15,9 @@ const MakeAdmin = () => {
       setOpen(true);
     };
 
-    const getConfirmation = value =>{
-        if(value){
-            setConfirmation(true);
-        }
-        else{
-            setConfirmation(false);
-        }
-        setOpen(false);
-    };
-  
-    const handleClose = (value) => {
-        setOpen(false);
-        if(value){
-            setConfirmation(true)
-        }
-        else{
-            setConfirmation(false)
-        }
-
-    };
-
-    const handleAdminSubmit = e => {
-        handleClickOpen()
-
+    const makeAdmin = (confirmation, email) =>{
+        const user = { email };
         if(confirmation){
-            const user = { email };
             fetch('https://damp-meadow-99405.herokuapp.com/users/admin', {
                 method: 'PUT',
                 headers: {
@@ -58,24 +34,33 @@ const MakeAdmin = () => {
                     setNotSuccess(true);
                 }
             })
-        }
-        e.preventDefault()
-    }
+        }       
+        setOpen(false);
+    };
+  
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleAdminSubmit = e => {
+        handleClickOpen();
+        e.preventDefault();
+    };
 
     return (
         <>
-            <h2>Make an Admin</h2>
-            <form onSubmit={handleAdminSubmit}>
+            <Typography variant='h6'>Make an Admin</Typography>
+            <form style={{maxWidth:'550px'}} onSubmit={handleAdminSubmit}>
                 <TextField
                     required
-                    sx={{ width: '50%' }}
+                    sx={{ width: '100%', my:1 }}
                     label="Email"
                     type="email"
                     onBlur={handleOnBlur}
-                    variant="standard" />
+                    variant="outlined" /> <br />
                 <Button type="submit" variant="contained">Make Admin</Button>
             </form>
-            {success && <Alert severity= 'success'>Made Admin successfully!</Alert> }
+            {success && <Alert sx={{maxWidth:'550px' , mt:1}} severity= 'success'>Made Admin successfully!</Alert> }
             {notSuccess && <Alert severity= 'error'>Email address is not valid!</Alert> }
             <Dialog
                 open={open}
@@ -88,14 +73,12 @@ const MakeAdmin = () => {
                 </DialogTitle>
                 <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Admin can allow to get all the information of the website.
+                    Admin can get all the information of the website.
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={() => getConfirmation(true)}>No</Button>
-                <Button onClick={() => getConfirmation(false)} autoFocus>
-                    Yes
-                </Button>
+                <Button onClick={() => makeAdmin(false, email)}>No</Button>
+                <Button onClick={() => makeAdmin(true, email)} autoFocus>Yes</Button>
                 </DialogActions>
             </Dialog> 
         </>

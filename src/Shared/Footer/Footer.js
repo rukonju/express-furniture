@@ -26,10 +26,11 @@ const Footer = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} >
                         <Typography>Contact: 34908834345</Typography>
-                        <Typography>Email: easyqourier@gmail.com</Typography>
+                        <Typography>Email: efurniture@gmail.com</Typography>
                         <Typography>Location: Sherpur Town,Sherpur,Mymensingh.</Typography>
                     </Grid>
                 </Grid>
+                <hr style={{color:'white'}} />
                 <Typography sx={{py:4, textAlign:'center'}}>Copyright © 2021 Express Furniture. All right reserved.</Typography>
             </Container>
         </Box>

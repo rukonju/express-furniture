@@ -1,5 +1,6 @@
-import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
 import './product.css'
 
@@ -18,7 +19,7 @@ const Product = ({product}) => {
                     image={photoUrl}
                     />
                     <Link className="Button"  style={{textDecoration:'none', position:'absolute'}} to={`/purchase/${_id}`}>
-                        Purchase
+                        <ShoppingCartIcon/> <Typography>Purchase</Typography>
                     </Link>
                 </Box>
                 <CardContent>

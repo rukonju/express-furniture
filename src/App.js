@@ -15,6 +15,7 @@ import PageNotFound from './Pages/PageNotFound/PageNotFound';
 function App() {
   
   return (
+    <div className="App">
       <AuthProvider>
         <Router>
           <Switch>
@@ -47,7 +48,8 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      </AuthProvider>  
+      </AuthProvider>
+    </div>  
   );
 }
 

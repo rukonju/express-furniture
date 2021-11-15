@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box,Button, Chip, Divider, TextField, Typography } from '@mui/material';
+import { Box,Button, Chip, Divider, Paper, TextField, Typography } from '@mui/material';
 import { useLocation, useHistory } from 'react-router';
 import google from '../../../images/google.png';
 import facebook from '../../../images/facebook.png';
@@ -26,17 +26,17 @@ const Login = () => {
     }
     
     return (
-        <Box sx={{ mt:8}}>
-            <Box sx={{display:'flex', flexDirection:'column', maxWidth:'550px',margin:'auto'}}>
+        <Box sx={{ mt:8, px:1, }}>
+            <Paper elevation={3} sx={{display:'flex', p:1, flexDirection:'column', maxWidth:'550px',margin:'auto'}}>
                 <Typography variant='h6'>Login</Typography>
                 <form 
                 onSubmit={handleLogin} 
-                style={{display:'flex', flexDirection:'column', padding:'10px'}}
+                style={{display:'flex', flexDirection:'column'}}
                 >
                 <TextField 
                 required
                 onBlur={getLoginInfo} 
-                sx={{mt:2, py:1}} type='email' label="Email" variant="outlined" name='email' 
+                sx={{mt:2}} type='email' label="Email" variant="outlined" name='email' 
                 />
                 <TextField 
                 required
@@ -67,7 +67,7 @@ const Login = () => {
                         <Typography sx={{ml:1}}>Sign In With Facebook</Typography>
                     </Button>
                 </Box>
-            </Box>
+            </Paper>
         </Box>
     );
 };
